@@ -276,7 +276,7 @@ export default function PortfolioHero({ isDark, onToggleTheme }: PortfolioHeroPr
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div className="w-[110px] h-[110px] sm:w-[150px] sm:h-[150px] md:w-[185px] md:h-[185px] lg:w-[218px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl border-4 border-black dark:border-neutral-900 transition-transform duration-300 hover:scale-110 cursor-pointer">
               <img
-                src="/my_photo.png"
+                src="/photo.jpeg"
                 alt="Raj Kumar Gupta"
                 className="w-full h-full object-cover"
               />
