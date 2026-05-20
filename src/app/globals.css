@@ -1,26 +1,285 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── README Markdown Styles ─────────────────────────────────────────── */
+/* Override Tailwind v4 preflight reset to make GitHub HTML visible */
+.readme-styled,
+.readme-styled * {
+  color: inherit;
+}
+.readme-styled {
+  color: hsl(0 0% 65%) !important;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.readme-styled h1 {
+  display: block !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #C3E41D !important;
+  margin: 1.5rem 0 0.75rem !important;
+  padding-bottom: 0.5rem !important;
+  border-bottom: 1px solid hsl(0 0% 15%) !important;
+}
+.readme-styled h2 {
+  display: block !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: hsl(0 0% 90%) !important;
+  margin: 1.25rem 0 0.5rem !important;
+}
+.readme-styled h3 {
+  display: block !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: hsl(0 0% 85%) !important;
+  margin: 1rem 0 0.5rem !important;
+}
+.readme-styled h4,
+.readme-styled h5,
+.readme-styled h6 {
+  display: block !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: hsl(0 0% 80%) !important;
+  margin: 0.75rem 0 0.5rem !important;
+}
+.readme-styled p {
+  display: block !important;
+  margin-bottom: 0.75rem !important;
+  color: hsl(0 0% 65%) !important;
+}
+.readme-styled a {
+  color: #C3E41D !important;
+  text-decoration: underline !important;
+}
+.readme-styled a:hover {
+  opacity: 0.8;
+}
+.readme-styled ul {
+  display: block !important;
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled ol {
+  display: block !important;
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled li {
+  display: list-item !important;
+  margin-bottom: 0.25rem !important;
+  color: hsl(0 0% 65%) !important;
+}
+.readme-styled pre {
+  display: block !important;
+  background-color: hsl(0 0% 8%) !important;
+  border-radius: 0.5rem !important;
+  padding: 1rem !important;
+  overflow-x: auto !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled pre code {
+  background: none !important;
+  padding: 0 !important;
+  font-size: 0.8rem !important;
+  color: hsl(0 0% 70%) !important;
+}
+.readme-styled code {
+  background-color: hsl(0 0% 12%) !important;
+  padding: 0.15rem 0.4rem !important;
+  border-radius: 0.25rem !important;
+  font-size: 0.85em !important;
+  color: #C3E41D !important;
+}
+.readme-styled blockquote {
+  display: block !important;
+  border-left: 3px solid #C3E41D !important;
+  padding-left: 1rem !important;
+  color: hsl(0 0% 55%) !important;
+  font-style: italic !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled strong,
+.readme-styled b {
+  font-weight: 700 !important;
+  color: hsl(0 0% 85%) !important;
+}
+.readme-styled table {
+  display: table !important;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 0.8rem !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled thead { display: table-header-group !important; }
+.readme-styled tbody { display: table-row-group !important; }
+.readme-styled tr { display: table-row !important; }
+.readme-styled th {
+  display: table-cell !important;
+  background-color: hsl(0 0% 10%) !important;
+  color: hsl(0 0% 80%) !important;
+  padding: 0.5rem !important;
+  border: 1px solid hsl(0 0% 20%) !important;
+  text-align: left !important;
+}
+.readme-styled td {
+  display: table-cell !important;
+  padding: 0.5rem !important;
+  border: 1px solid hsl(0 0% 15%) !important;
+  color: hsl(0 0% 60%) !important;
+}
+.readme-styled img {
+  max-width: 100% !important;
+  border-radius: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+  display: inline-block !important;
+}
+.readme-styled hr {
+  display: block !important;
+  border: none !important;
+  border-top: 1px solid hsl(0 0% 15%) !important;
+  margin: 1.5rem 0 !important;
+}
+.readme-styled details {
+  display: block !important;
+  margin-bottom: 0.75rem !important;
+}
+.readme-styled summary {
+  display: list-item !important;
+  cursor: pointer !important;
+  color: hsl(0 0% 80%) !important;
+  font-weight: 600 !important;
 }

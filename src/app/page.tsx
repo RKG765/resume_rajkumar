@@ -1,65 +1,90 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import PortfolioHero from "@/components/ui/portfolio-hero";
+import AboutSection from "@/components/ui/about-section";
+import ProjectsSection from "@/components/ui/projects-section";
+import ExperienceSection from "@/components/ui/experience-section";
+import ContactSection from "@/components/ui/contact-section";
+import type { Project } from "@/lib/types";
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(true);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Initialize dark mode
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
+  // Fetch projects from API
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const data = await res.json();
+          setProjects(data.projects || []);
+        }
+      } catch (error) {
+        console.error("Failed to load projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadProjects();
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setIsDark((prev) => {
+      const next = !prev;
+      if (next) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      return next;
+    });
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div
+      className="w-full transition-colors duration-500"
+      style={{
+        backgroundColor: isDark ? "hsl(0 0% 0%)" : "hsl(0 0% 98%)",
+      }}
+    >
+      {/* Hero Section */}
+      <PortfolioHero isDark={isDark} onToggleTheme={toggleTheme} />
+
+      {/* About Section */}
+      <AboutSection isDark={isDark} />
+
+      {/* Projects Section — live from GitHub + Groq */}
+      <ProjectsSection isDark={isDark} projects={projects} />
+
+      {/* Experience + Education Section */}
+      <ExperienceSection isDark={isDark} />
+
+      {/* Contact Section */}
+      <ContactSection isDark={isDark} />
+
+      {/* Loading overlay for projects */}
+      {isLoading && (
+        <div className="fixed bottom-4 right-4 z-40">
+          <div
+            className="px-4 py-2 rounded-lg text-xs font-medium flex items-center gap-2"
+            style={{
+              backgroundColor: isDark ? "hsl(0 0% 10%)" : "hsl(0 0% 95%)",
+              color: isDark ? "hsl(0 0% 60%)" : "hsl(0 0% 40%)",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <div className="w-3 h-3 border-2 border-[#C3E41D] border-t-transparent rounded-full animate-spin" />
+            Fetching projects from GitHub...
+          </div>
         </div>
-      </main>
+      )}
     </div>
   );
 }
